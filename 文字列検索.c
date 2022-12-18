@@ -11,7 +11,7 @@
 #define NOT_FOUND_INDEX -1
 
 // プロトタイプ宣言
-int search_word_index(char* word, int word_size, char* from, int from_size);
+int search_word_index(char* word, int word_length, char* from, int from_length);
 void print_result(int index, char *word, char *from);
 
 int main() {
@@ -46,15 +46,15 @@ int main() {
 /**
  * @brief 検索対象wordと部分一致する文字列fromからの先頭のindexを返します。
  * @param word 検索対象文字列
- * @param word_size wordの文字列長
+ * @param word_length wordの文字列長
  * @param from 検索元文字列
- * @param from_size fromの文字列長
+ * @param from_length fromの文字列長
  *
  * @return NOT_FOUND_INDEX以外 文字列from内におけるwordと一致する部分の先頭index
  * @return NOT_FOUND_INDEX wordと一致する部分が見つからなかった
  */
-int search_word_index(char* word, int word_size, char* from, int from_size) {
-    for(int i = 0; i < from_size - word_size; i++) {
+int search_word_index(char* word, int word_length, char* from, int from_length) {
+    for(int i = 0; i < from_length - word_length; i++) {
         // 検索対象文字列の頭文字が不一致ならば、次の文字の処理に進む
         if(from[i] != word[0]) {
             continue;
@@ -62,7 +62,7 @@ int search_word_index(char* word, int word_size, char* from, int from_size) {
 
         // 頭文字のindexを基準に検索を行う
         bool isMatch = true;
-        for(int j = 1; j < word_size; j++) {
+        for(int j = 1; j < word_length; j++) {
             if(from[i + j] != word[j]) {
                 isMatch = false;
                 break;
