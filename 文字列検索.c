@@ -100,3 +100,4 @@ void print_result(int index, char *word, char *from) {
         printf("\n");
     }
 }
+
