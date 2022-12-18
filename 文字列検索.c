@@ -12,7 +12,7 @@
 
 // プロトタイプ宣言
 int search_word_index(char* word, int word_length, char* from, int from_length);
-void print_result(int index, char *word, char *from);
+void print_result(int index, char* word, char* from);
 
 int main() {
     // 検索する文字列句
