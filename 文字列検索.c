@@ -20,7 +20,7 @@ int main() {
 
     // 検索元の文字列(1) 存在する場合
     char *from1 = "fgaliuwgfelaugyourfeagliyuwfebva";
-    //                          ^^^^
+    //                           ^^^^
     // 検索・結果を表示
     int word_index1 = search_word_index(word, from1);
     print_result(word_index1, word, from1);
