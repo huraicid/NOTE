@@ -84,21 +84,24 @@ int search_word_index(char* word, char* from) {
  * @param 文字列のindex（存在しない場合はNOT_FOUND_INDEX）
  */
 void print_result(int index, char *word, char *from) {
+    // 検索結果が無かった場合
     if(index == NOT_FOUND_INDEX) {
         printf("%sは見つかりませんでした。\n", word);
+        return;
     } 
-    else {
-        printf("%sが%d文字目にありました！\n", word, index);
-        printf("%s\n", from);
+    
+    printf("%sが%d文字目にありました！\n", word, index);
+    printf("%s\n", from);
 
-        int word_length = strlen(word);
-        for(int i = 0; i < index; i++) {
-            printf(" ");
-        }
-        for(int i = 0; i < word_length; i++) {
-            printf("^");
-        }
-        printf("\n");
+    // 取得先文字列の検索文字列部分に波線を引く
+    int word_length = strlen(word);
+    for(int i = 0; i < index; i++) {
+        printf(" ");
     }
+    for(int i = 0; i < word_length; i++) {
+        printf("^");
+    }
+    printf("\n");
+    
 }
 
