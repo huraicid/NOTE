@@ -82,6 +82,8 @@ int search_word_index(char* word, char* from) {
 /**
  * @brief 検索結果からメッセージを標準出力に出力します。
  * @param 文字列のindex（存在しない場合はNOT_FOUND_INDEX）
+ * @param 検索対象の文字列
+ * @param 検索先の文字列
  */
 void print_result(int index, char *word, char *from) {
     // 検索結果が無かった場合
@@ -93,7 +95,7 @@ void print_result(int index, char *word, char *from) {
     printf("%sが%d文字目にありました！\n", word, index);
     printf("%s\n", from);
 
-    // 取得先文字列の検索文字列部分に波線を引く
+    // 取得先文字列内の検索対象文字列部分に波線を引く
     int word_length = strlen(word);
     for(int i = 0; i < index; i++) {
         printf(" ");
@@ -102,6 +104,5 @@ void print_result(int index, char *word, char *from) {
         printf("^");
     }
     printf("\n");
-    
 }
 
