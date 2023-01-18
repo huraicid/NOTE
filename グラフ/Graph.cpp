@@ -1,5 +1,6 @@
 #include "Graph.h"
 #include <iostream>
+#include <queue>
 
 /// <summary>
 /// 引数のグラフの各頂点からの行き先を表示します。
@@ -33,5 +34,42 @@ void GraphUtil::printAdjacencyList(Graph graph) {
 		}
 
 		std::cout << "}" << std::endl;
+	}
+}
+
+/// <summary>
+/// グラフgraphにおいて、頂点startを始点とした幅優先探索を行う。
+/// </summary>
+/// <param name="graph">グラフ</param>
+/// <param name="start">始点の頂点</param>
+void GraphUtil::breadthFirstSearch(const Graph& graph, int start) {
+	// 各頂点の訪問済みフラグ
+	std::vector<bool> seenVertexes(graph.size(), false);
+
+	// 訪問予定の頂点（キュー構造）
+	std::queue<int> todoVertexes;
+
+	// 初期条件
+	// 始点startは探索済みとし、訪問予定の頂点をstartのみにする
+	seenVertexes[start] = true;
+	todoVertexes.push(start);
+
+	// 訪問予定の頂点が空になるまで探索が続けられる
+	while (!todoVertexes.empty()) {
+		// 訪問先の頂点を取得する
+		int v = todoVertexes.front();
+		todoVertexes.pop();
+
+		// toからたどれる頂点をすべて探索予定に追加する
+		for (Edge x : graph[v]) {
+			// すでに探索済みの頂点は飛ばす
+			if (seenVertexes[v]) {
+				continue;
+			}
+
+			// 未訪問の頂点を訪問予定に追加する
+			todoVertexes.push(x.to);
+			seenVertexes[x.to] = true;
+		}
 	}
 }

@@ -4,33 +4,32 @@
 #include <iostream>
 
 int main() {
-	// é ‚ç‚¹æ•°ã¨è¾ºæ•°
+	// ’¸“_”‚Æ•Ó”
 	int N, M;
 	std::cin >> N >> M;
 
-	// ã‚°ãƒ©ãƒ•ã®åˆæœŸåŒ–
+	// ƒOƒ‰ƒt‚Ì‰Šú‰»
 	Graph G(N);
 	for (int i = 0; i < N; i++) {
-		// å§‹ç‚¹
+		// n“_
 		int from;
 
-		// è¡Œå…ˆ
+		// sæ
 		int to;
 
-		// é‡ã¿
+		// d‚İ
 		long long w;
 
-		// å…¥åŠ›ã‚’å—ã‘ä»˜ã‘ã¦è¾ºã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆã—æ ¼ç´
+		// “ü—Í‚ğó‚¯•t‚¯‚Ä•ÓƒCƒ“ƒXƒ^ƒ“ƒX‚ğì¬‚µŠi”[
 		std::cin >> from >> to >> w;
 		G[from].push_back(Edge(to, w));
 	}
 
-	// ã‚°ãƒ©ãƒ•ã®ä¸­èº«ã‚’è¡¨ç¤º
+	// ƒOƒ‰ƒt‚Ì’†g‚ğ•\¦
 	GraphUtil::printAdjacencyList(G);
+
+	// •—Dæ’Tõ
+	GraphUtil::breadthFirstSearch(G, 0);
 	
 	return 0;
-}
-
-void search(const Graph& G, int s) {
-
 }
