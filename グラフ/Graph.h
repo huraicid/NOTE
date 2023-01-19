@@ -7,9 +7,15 @@
 using Graph = std::vector<std::vector<Edge>>;
 
 namespace GraphUtil {
+	// ’è”ˆê——
+	const int INF_DIST = 9999999;
+
 	// ƒOƒ‰ƒt‚Ì’†g‚ğ•\¦
 	void printAdjacencyList(Graph graph);
 
-	// •—Dæ’Tõ
-	void breadthFirstSearch(const Graph& graph, int start);
+	// •—Dæ’Tõ‚ğ‚µ‚Än“_‚©‚ç‚ÌÅ’ZŒo˜H’·‚Ì”z—ñ‚ğ•Ô‚·
+	std::vector<int> breadthFirstSearch(const Graph& graph, int start);
+
+	// [‚³—Dæ’Tõ
+	bool depthFirstSearch(const Graph& graph, int start, int goal, std::vector<bool> seenVetrexes = std::vector<bool>(0));
 }

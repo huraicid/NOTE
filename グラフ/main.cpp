@@ -10,7 +10,7 @@ int main() {
 
 	// ƒOƒ‰ƒt‚Ì‰Šú‰»
 	Graph G(N);
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < M; i++) {
 		// n“_
 		int from;
 
@@ -29,7 +29,36 @@ int main() {
 	GraphUtil::printAdjacencyList(G);
 
 	// •—Dæ’Tõ
-	GraphUtil::breadthFirstSearch(G, 0);
+	int start = 1;
+	std::vector<int> minDists1 = GraphUtil::breadthFirstSearch(G, start);
+	std::cout << "•—Dæ’Tõ: " << std::endl;
+	for (int i = 0; i < minDists1.size(); i++) {
+		int dist = minDists1[i];
+
+		if (start == i) {
+			continue;
+		}
+
+		std::cout << start << " -> " << i << ": ";
+		if (dist < 0) {
+			std::cout << "unreachable" << std::endl;
+		}
+		else {
+			std::cout << dist << std::endl;
+		}
+	}
+
+	// [‚³—Dæ’Tõ‚Åstart‚©‚çgoal‚Ö“’B‰Â”\‚©”»’è‚·‚é
+	std::cout << "[‚³—Dæ’Tõ: " << std::endl;
+	start = 0;
+	int goal = 2;
+	std::cout << start << " -> " << goal << ": ";
+	if (GraphUtil::depthFirstSearch(G, start, goal)) {
+		std::cout << "reachable!" << std::endl;
+	}
+	else {
+		std::cout << "unreachable" << std::endl;
+	}
 	
 	return 0;
 }
