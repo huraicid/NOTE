@@ -1,6 +1,6 @@
 import graphviz
 
-# Graphvizのオブジェクトを作成 --- (*1)
+# Graphvizのオブジェクトを作成
 g = graphviz.Digraph(format='png')
 g.attr('graph', rankdir='LR')
 
