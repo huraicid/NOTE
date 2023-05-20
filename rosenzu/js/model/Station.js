@@ -17,7 +17,6 @@ class Station {
 
     // 駅のオブジェクトをcanvas上に描画する
     draw(context) {
-        // const
         // オブジェクトの大きさ
         const STATION_RADIUS = 5;
         // 塗りつぶしの色
@@ -36,8 +35,12 @@ class Station {
 
     // 駅名をオブジェクト下に描画する
     drawName(context) {
-        context.fillStyle = "rgba(255, 255, 255)";
-        context.font = "9pt sans-serif";
+        // フォント
+        const FILL_COLOR = "black";
+        const FONT_STYLE = "9pt sans-serif"
+        
+        context.fillStyle = FILL_COLOR;
+        context.font = FONT_STYLE;
         context.fillText(this.name, this.x, this.y + 15);
         context.strokeText(this.name, this.x, this.y + 15);
     }
