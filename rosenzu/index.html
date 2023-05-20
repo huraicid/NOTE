@@ -10,6 +10,7 @@
 
         <!-- javascript -->
         <script src="js/main.js"></script>
+        <script src="js/simulator.js"></script>
         <script src="js/model/Station.js"></script>
     </head>
 
@@ -17,9 +18,54 @@
         <div id="test">
             路線図テスト
         </div>
-        <canvas id="graphArea" width="751" height="751">
 
-        </canvas>
+        <div id="clock">
+            <div id="date">
+                2023/04/01
+            </div>
+            <div id="time">
+                06:00
+            </div>
+        </div>
 
+        <div id="graphArea">
+            <canvas id="canvas" width="751px" height="751px">
+                <!-- ここにcanvas要素が描画される -->
+            </canvas>
+        </div>
+
+        <div simulator>
+            <table border="1">
+                <tr>
+                    <td colspan="2">
+                        広島 → 岡山 のぞみ74号
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        発
+                    </td>
+                    <td>
+                        <div id="startTime">
+                            06:00
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        着
+                    </td>
+                    <td>
+                        <div id="endTime">
+                            06:41
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <input type="button" value="実行" onClick="SimulatorMain()">
+
+        </div>
     </body>
 </html>

@@ -1,6 +1,8 @@
+stations = {};
+
 window.onload = function() {
     // canvas要素を取得する。
-    const canvas = document.getElementById('graphArea');
+    const canvas = document.getElementById('canvas');
 
     // コンテキストを取得しておく。
     const context = canvas.getContext('2d');
