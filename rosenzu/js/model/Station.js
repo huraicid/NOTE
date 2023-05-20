@@ -9,6 +9,7 @@ class Station {
     nextStations = [];
 
     constructor(name, x, y, nextStations) {
+        this.name = name;
         this.x = x;
         this.y = y;
         this.nextStations = nextStations;
@@ -33,6 +34,14 @@ class Station {
         context.stroke();
     }
 
+    // 駅名をオブジェクト下に描画する
+    drawName(context) {
+        context.fillStyle = "rgba(255, 255, 255)";
+        context.font = "9pt sans-serif";
+        context.fillText(this.name, this.x, this.y + 15);
+        context.strokeText(this.name, this.x, this.y + 15);
+    }
+
     // 路線をcanvas上に描画する
     drawLine(nextStation, context) {
         context.beginPath();
@@ -44,7 +53,7 @@ class Station {
         context.lineTo(nextStation.x, nextStation.y);
 
         // 線の色
-        context.strokeStyle = "white";
+        context.strokeStyle = "black";
 
         // 線の太さ
         context.lineWidth = 3;

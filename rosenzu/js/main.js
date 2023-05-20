@@ -34,5 +34,6 @@ window.onload = function() {
     // 駅を描画する。
     for(const name in stations) {
         stations[name].draw(context);
+        stations[name].drawName(context);
     }
 };
