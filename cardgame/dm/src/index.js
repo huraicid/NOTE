@@ -4,7 +4,7 @@ const COUNT = 4;
 
 new gridjs.Grid({
     sort: true,
-    width: '70%',
+    width: '100%',
     columns: COLUMN_DEFS,
     data: ROW_DATAS
 }).render(document.getElementById("wrapper"));
