@@ -1,4 +1,5 @@
 import csv
+import math
 import re
 
 
@@ -14,12 +15,15 @@ aggregatedData = {}
 # 戦績データを更新する
 def updateAggregatedData(winnerCol, loserCol):
     aggregatedData[row[winnerCol]]['wins'] += 1
-    aggregatedData[row[winnerCol]]['wp'] = aggregatedData[row[winnerCol]]['wins'] / (aggregatedData[row[winnerCol]]['wins'] + aggregatedData[row[winnerCol]]['loses'])
+    winnerWpNotRounded = aggregatedData[row[winnerCol]]['wins'] / (aggregatedData[row[winnerCol]]['wins'] + aggregatedData[row[winnerCol]]['loses'])
+    aggregatedData[row[winnerCol]]['wp'] = math.floor(winnerWpNotRounded * 10 ** 2) / (10 ** 2)
 
     aggregatedData[row[loserCol]]['loses'] += 1
-    aggregatedData[row[loserCol]]['wp'] = aggregatedData[row[loserCol]]['wins'] / (aggregatedData[row[loserCol]]['wins'] + aggregatedData[row[loserCol]]['loses'])
+    loserWpNotRounded = aggregatedData[row[loserCol]]['wins'] / (aggregatedData[row[loserCol]]['wins'] + aggregatedData[row[loserCol]]['loses'])
+    aggregatedData[row[loserCol]]['wp'] = math.floor(loserWpNotRounded * 10 ** 2) / (10 ** 2)
 
 
+# デッキ名の略称を日本語の正式名称に変換する
 def getJpnDeckName(name):
     if name == 'bs':
         return 'ビクトリー・ソウル'
@@ -35,6 +39,7 @@ def getJpnDeckName(name):
         return 'Undefined'
 
 
+# 戦績集計データのデッキ名部分を略称から日本語の正式名称に修正したものを取得する
 def getJpnNameAggregatedData():
     tmpAggregatedData = {}
     for key in aggregatedData:
@@ -82,6 +87,7 @@ with open('./data/results.csv') as f:
         if row[DECK2_COL_NO] not in aggregatedData:
             aggregatedData[row[DECK2_COL_NO]] = {'wins': 0, 'loses': 0, 'wp': 0}
         
+        # 勝ち負けデータを読み込み更新する
         if row[WIN_COL_NO] == row[DECK1_COL_NO]:
             updateAggregatedData(DECK1_COL_NO, DECK2_COL_NO)
         else:
