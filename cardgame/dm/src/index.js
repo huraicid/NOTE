@@ -6,10 +6,7 @@ new gridjs.Grid({
     sort: true,
     width: '700px',
     columns: COLUMN_DEFS,
-    loadedRows: function (s, e) {
-        s.autoSizeColumns();
-    },
-    data: ROW_DATAS
+    data: ROW_DATAS.sort()
 }).render(document.getElementById("wrapper"));
 
 document.getElementById("count").innerText = COUNT;
