@@ -26,15 +26,15 @@ def updateAggregatedData(winnerCol, loserCol):
 # デッキ名の略称を日本語の正式名称に変換する
 def getJpnDeckName(name):
     if name == 'bs':
-        return 'ビクトリー・ソウル'
+        return 'DMC-39 ビクトリー・ソウル'
     elif name == 'hdm':
-        return 'ヘヴィ・デス・メタル'
+        return 'DMC-40 ヘヴィ・デス・メタル'
     elif name == 'neh':
-        return 'ネバー・エンディング・ヒーロー'
+        return 'DMC-43 ネバー・エンディング・ヒーロー'
     elif name == 'ymt':
-        return 'BATTLE of YAMATO魂'
+        return 'DMC-45 BATTLE of YAMATO魂'
     elif name == 'ngt':
-        return 'Arcadias騎士団'
+        return 'DMC-46 Arcadias騎士団'
     else:
         return 'Undefined'
 
@@ -46,7 +46,7 @@ def getJpnNameAggregatedData():
         newKey = getJpnDeckName(key)
         tmpAggregatedData[newKey] = aggregatedData[key]
     
-    return tmpAggregatedData
+    return sorted(tmpAggregatedData.items())
 
 
 # index.jsのデータ部分を書き換える
