@@ -1,6 +1,6 @@
 const COLUMN_DEFS = ["Deck Name", "Wins", "Loses", "WP"];
-const ROW_DATAS = [["ネバー・エンディング・ヒーロー", "0", "2", "0.0"],["ヘヴィ・デス・メタル", "1", "1", "0.5"],["ビクトリー・ソウル", "1", "1", "0.5"],["BATTLE of YAMATO魂", "2", "0", "1.0"],["Arcadias騎士団", "1", "1", "0.5"]];
-const COUNT = 5;
+const ROW_DATAS = [["ネバー・エンディング・ヒーロー", "0", "3", "0.0"],["ヘヴィ・デス・メタル", "2", "1", "0.6666666666666666"],["ビクトリー・ソウル", "1", "1", "0.5"],["BATTLE of YAMATO魂", "2", "0", "1.0"],["Arcadias騎士団", "1", "1", "0.5"]];
+const COUNT = 6;
 
 new gridjs.Grid({
     sort: true,

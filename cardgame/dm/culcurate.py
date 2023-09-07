@@ -71,7 +71,7 @@ def modifyIndexJsData():
 
 
 # csvファイルを読み込む
-with open('data/results.csv') as f:
+with open('./data/results.csv') as f:
     reader = csv.reader(f)
     # 1行目はヘッダ行なので読み込まない
     rows = [row for row in reader]
