@@ -19,8 +19,8 @@ def main():
 
     # 表示用にデータを変換
     jpnNameAggregatedData = dataConverter.getJpnNameAggregatedData(aggregatedData)
-    
-    # jsファイルを書き換え
+
+    # jsファイルを書き換える
     jsModifier.modifyIndexJsData(JS_OUT_PATH, count, jpnNameAggregatedData)
 
 
