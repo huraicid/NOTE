@@ -23,7 +23,7 @@ def getJpnDeckName(abb):
     デッキ名の略称を日本語の正式名称に変換したものを取得する。
 
     Args:
-        name (string): 略称名
+        abb (string): 略称名（半角英数3文字以下）
     Returns:
         string: 返還後の日本語正式名称
     """
