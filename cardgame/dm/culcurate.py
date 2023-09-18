@@ -46,7 +46,7 @@ def getJpnNameAggregatedData():
         newKey = getJpnDeckName(key)
         tmpAggregatedData[newKey] = aggregatedData[key]
     
-    return sorted(tmpAggregatedData.items())
+    return tmpAggregatedData
 
 
 # index.jsのデータ部分を書き換える
