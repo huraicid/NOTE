@@ -12,17 +12,17 @@ DECK1_COL_NO = 1
 DECK2_COL_NO = 2
 WIN_COL_NO = 3
 
-# 戦績集計データ
-count = 0
-aggregatedData = {}
-
 # main部
 def main():
-    readResultData()
-    modifyIndexJsData()
+    count, aggregatedData = readResultData()
+    modifyIndexJsData(count, aggregatedData)
 
 # csvファイルから戦績データを読み込み集計データを作成する
 def readResultData():
+    # 戻り値用データ
+    count = 0
+    aggregatedData = {}
+
     with open(CSV_SOURCE_PATH) as f:
         # csvファイルを読み込む
         reader = csv.reader(f)
@@ -30,7 +30,6 @@ def readResultData():
 
         # 対戦回数（データ数）を計算
         # ヘッダ行を除いた行数
-        global count
         count = len(rows) - 1
 
         # 1行目はヘッダ行なので読み込まない
@@ -43,12 +42,15 @@ def readResultData():
             
             # 勝ち負けデータを読み込み更新する
             if row[WIN_COL_NO] == row[DECK1_COL_NO]:
-                updateAggregatedData(row, DECK1_COL_NO, DECK2_COL_NO)
+                aggregatedData = updateAggregatedData(row, aggregatedData, DECK1_COL_NO, DECK2_COL_NO)
             else:
-                updateAggregatedData(row, DECK2_COL_NO, DECK1_COL_NO)
+                aggregatedData = updateAggregatedData(row, aggregatedData, DECK2_COL_NO, DECK1_COL_NO)
+    
+    return count, aggregatedData
+
 
 # 戦績データを更新する
-def updateAggregatedData(row, winnerCol, loserCol):
+def updateAggregatedData(row, aggregatedData, winnerCol, loserCol):
     aggregatedData[row[winnerCol]]['wins'] += 1
     winnerWpNotRounded = aggregatedData[row[winnerCol]]['wins'] / (aggregatedData[row[winnerCol]]['wins'] + aggregatedData[row[winnerCol]]['loses'])
     aggregatedData[row[winnerCol]]['wp'] = math.floor(winnerWpNotRounded * 10 ** 2) / (10 ** 2)
@@ -57,8 +59,10 @@ def updateAggregatedData(row, winnerCol, loserCol):
     loserWpNotRounded = aggregatedData[row[loserCol]]['wins'] / (aggregatedData[row[loserCol]]['wins'] + aggregatedData[row[loserCol]]['loses'])
     aggregatedData[row[loserCol]]['wp'] = math.floor(loserWpNotRounded * 10 ** 2) / (10 ** 2)
 
+    return aggregatedData
+
 # index.jsのデータ部分を書き換える
-def modifyIndexJsData():
+def modifyIndexJsData(count, aggregatedData):
     # ファイルを読み込む
     with open(JS_OUT_PATH, encoding='utf-8') as js:
         content = js.read()
@@ -69,7 +73,7 @@ def modifyIndexJsData():
     newContent = re.sub('COUNT = \d+', newCountElem, content)
 
     # 行データ部
-    jpnNameaggregatedData = getJpnNameAggregatedData()
+    jpnNameaggregatedData = getJpnNameAggregatedData(aggregatedData)
     newData = '['
     for key in jpnNameaggregatedData:
         row = jpnNameaggregatedData[key]
@@ -83,7 +87,7 @@ def modifyIndexJsData():
         js.write(newContent)
 
 # 戦績集計データのデッキ名部分を略称から日本語の正式名称に修正したものを取得する
-def getJpnNameAggregatedData():
+def getJpnNameAggregatedData(aggregatedData):
     tmpAggregatedData = {}
     for key in aggregatedData:
         newKey = getJpnDeckName(key)
