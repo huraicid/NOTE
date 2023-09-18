@@ -2,6 +2,11 @@ import csv
 import math
 import re
 
+# 読み込むCSVファイルの相対パス
+CSV_SOURCE_PATH = './../data/results.csv'
+# 書き換え先jsの相対ファイルパス
+JS_OUT_PATH = './../src/index.js'
+
 # カラムのindex定義
 DECK1_COL_NO = 1
 DECK2_COL_NO = 2
@@ -18,7 +23,7 @@ def main():
 
 # csvファイルから戦績データを読み込み集計データを作成する
 def readResultData():
-    with open('./data/results.csv') as f:
+    with open(CSV_SOURCE_PATH) as f:
         # csvファイルを読み込む
         reader = csv.reader(f)
         rows = [row for row in reader]
@@ -55,7 +60,7 @@ def updateAggregatedData(row, winnerCol, loserCol):
 # index.jsのデータ部分を書き換える
 def modifyIndexJsData():
     # ファイルを読み込む
-    with open('./src/index.js', encoding='utf-8') as js:
+    with open(JS_OUT_PATH, encoding='utf-8') as js:
         content = js.read()
     
     # 差し替え用データを作成
@@ -74,7 +79,7 @@ def modifyIndexJsData():
     newContent = re.sub('\[\[.*\]\]', newData, newContent)
 
     # ファイルの書き換え
-    with open('./src/index.js', mode='w', encoding='utf-8') as js:
+    with open(JS_OUT_PATH, mode='w', encoding='utf-8') as js:
         js.write(newContent)
 
 # 戦績集計データのデッキ名部分を略称から日本語の正式名称に修正したものを取得する
