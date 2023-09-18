@@ -1,4 +1,5 @@
 import reader.dataReader as dataReader
+import converter.dataConverter as dataConverter
 import re
 
 # 読み込むCSVファイルの相対パス
@@ -9,12 +10,16 @@ JS_OUT_PATH = './../src/index.js'
 
 # main部
 def main():
+    # csvファイルを読み込む
     count, aggregatedData = dataReader.readResultData(CSV_SOURCE_PATH)
-    modifyIndexJsData(count, aggregatedData)
+
+    # 表示用にデータを変換
+    jpnNameAggregatedData = dataConverter.getJpnNameAggregatedData(aggregatedData)
+    modifyIndexJsData(count, jpnNameAggregatedData)
 
 
 # index.jsのデータ部分を書き換える
-def modifyIndexJsData(count, aggregatedData):
+def modifyIndexJsData(count, jpnNameAggregatedData):
     # ファイルを読み込む
     with open(JS_OUT_PATH, encoding='utf-8') as js:
         content = js.read()
@@ -25,10 +30,9 @@ def modifyIndexJsData(count, aggregatedData):
     newContent = re.sub('COUNT = \d+', newCountElem, content)
 
     # 行データ部
-    jpnNameaggregatedData = getJpnNameAggregatedData(aggregatedData)
     newData = '['
-    for key in jpnNameaggregatedData:
-        row = jpnNameaggregatedData[key]
+    for key in jpnNameAggregatedData:
+        row = jpnNameAggregatedData[key]
         rowData = '\"{}\", \"{}\", \"{}\", \"{}\"'.format(key, row['wins'], row['loses'], row['wp'])
         newData += ('[' + rowData + ']' + ',')
     newData = newData[:-1] + ']'
@@ -37,31 +41,6 @@ def modifyIndexJsData(count, aggregatedData):
     # ファイルの書き換え
     with open(JS_OUT_PATH, mode='w', encoding='utf-8') as js:
         js.write(newContent)
-
-# 戦績集計データのデッキ名部分を略称から日本語の正式名称に修正したものを取得する
-def getJpnNameAggregatedData(aggregatedData):
-    tmpAggregatedData = {}
-    for key in aggregatedData:
-        newKey = getJpnDeckName(key)
-        tmpAggregatedData[newKey] = aggregatedData[key]
-    
-    return tmpAggregatedData
-
-# デッキ名の略称を日本語の正式名称に変換する
-def getJpnDeckName(name):
-    if name == 'bs':
-        return 'DMC-39 ビクトリー・ソウル'
-    elif name == 'hdm':
-        return 'DMC-40 ヘヴィ・デス・メタル'
-    elif name == 'neh':
-        return 'DMC-43 ネバー・エンディング・ヒーロー'
-    elif name == 'ymt':
-        return 'DMC-45 BATTLE of YAMATO魂'
-    elif name == 'ngt':
-        return 'DMC-46 Arcadias騎士団'
-    else:
-        return 'Undefined'
-
 
 if __name__ == '__main__':
     main()
