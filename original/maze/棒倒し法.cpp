@@ -2,20 +2,10 @@
 #include <vector>
 #include <random>
 
+#include "./common/const.hpp"
+
 std::random_device rd;
 std::mt19937 gen(rd());
-
-// オブジェクト定義
-const static int WALL = 0;
-const static int PATH = 1;
-const static int START = 8;
-const static int GOAL = 9;
-
-// 方向定義
-const static int DIR_EAST = 0;
-const static int DIR_WEST = 1;
-const static int DIR_SOUTH = 2;
-const static int DIR_NORTH = 3;
 
 bool isAbleCreateWall(std::vector<std::vector<int> > mazeData, const int nowX, const int nowY, int dir) {
    // 判定用の座標
@@ -23,13 +13,13 @@ bool isAbleCreateWall(std::vector<std::vector<int> > mazeData, const int nowX, c
     int targetY = nowY;
    
     switch(dir) {
-    case DIR_EAST:
+    case Const::DIR_EAST:
         targetX += 1;
         break;
-    case DIR_WEST:
+    case Const::DIR_WEST:
         targetX -= 1;
         break;
-    case DIR_SOUTH:
+    case Const::DIR_SOUTH:
         targetY += 1;
         break;
     default:
@@ -37,7 +27,7 @@ bool isAbleCreateWall(std::vector<std::vector<int> > mazeData, const int nowX, c
         break;
     }
 
-    if(mazeData[targetY][targetX] == PATH) {
+    if(mazeData[targetY][targetX] == Const::PATH) {
         return true;
     }
 
@@ -45,13 +35,13 @@ bool isAbleCreateWall(std::vector<std::vector<int> > mazeData, const int nowX, c
 }
 
 std::vector<std::vector<int> > initMazeData(int rowSize, int colSize) {
-    std::vector<std::vector<int> > rtnMazeData(rowSize, std::vector<int>(colSize, WALL));
-
+    std::vector<std::vector<int> > rtnMazeData(rowSize, std::vector<int>(colSize, Const::WALL));
+    
     // 棒倒しのために迷路の内側に基準となる壁を残して通路にする
     for(int i = 1; i < rowSize - 1; i++) {
         for(int j = 1; j < colSize - 1; j++) {
             if(i % 2 == 1 || j % 2 == 1) {
-                rtnMazeData[i][j] = PATH;
+                rtnMazeData[i][j] = Const::PATH;
             }
         }
     }
@@ -81,27 +71,27 @@ std::vector<std::vector<int> > initMazeData(int rowSize, int colSize) {
             switch (rndDir) {
             case 0:
                 // 東
-                rtnMazeData[y][x+1] = WALL;
+                rtnMazeData[y][x+1] = Const::WALL;
                 break;
             case 1:
                 // 西 
-                rtnMazeData[y][x-1] = WALL;
+                rtnMazeData[y][x-1] = Const::WALL;
                 break;
             case 2: 
                 // 南
-                rtnMazeData[y+1][x] = WALL;
+                rtnMazeData[y+1][x] = Const::WALL;
                 break;
             default:
                 // 北 
-                rtnMazeData[y-1][x] = WALL;
+                rtnMazeData[y-1][x] = Const::WALL;
                 break;
             }
         }
     }
 
     // 入口と出口を生成する
-    rtnMazeData[0][1] = GOAL;
-    rtnMazeData[rowSize-1][colSize-2] = START;
+    rtnMazeData[0][1] = Const::GOAL;
+    rtnMazeData[rowSize-1][colSize-2] = Const::START;
 
     return rtnMazeData;
 } 
@@ -119,13 +109,13 @@ int main() {
         for(int j = 0; j < colSize; j++) {
             std::string outChar = "¥0";
             switch (mazeData[i][j]) {
-            case PATH:
+            case Const::PATH:
                 outChar = " ";
                 break;
-            case START:
+            case Const::START:
                 outChar = "S";
                 break;
-            case GOAL:
+            case Const::GOAL:
                 outChar = "G";
                 break;
             default:
