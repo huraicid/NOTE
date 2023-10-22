@@ -29,7 +29,9 @@ def getJpnDeckName(abb):
     """
 
     # NOTE: pythonはswitch文がないのでこの書き方でやるしかない
-    if abb == 'bs':
+    if abb == 'hod':
+        return 'DMC-36 ヘヴン・オブ・ドラゴン'
+    elif abb == 'bs':
         return 'DMC-39 ビクトリー・ソウル'
     elif abb == 'hdm':
         return 'DMC-40 ヘヴィ・デス・メタル'
