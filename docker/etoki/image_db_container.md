@@ -10,6 +10,10 @@
 
 ## ボリューム
 
+```bash
+docker volume create --name work-db-volume
+```
+
 |key|value|補足|
 |---|---|---|
 |type|volume|ボリュームマウントを使用|
