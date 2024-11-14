@@ -18,3 +18,17 @@
 
 ## ネットワーク
 `--nerwork work-network`
+
+
+## 実行コマンド
+```bash
+docker container run
+ --name app \
+ --rm \
+ --detach \
+ --publish 8000:8000 \
+ --mount type=bind,source="$(pwd)"/src,target=/my-work \
+ --network work-network \
+ work-app:0.1.0 \
+ /usr/local/bin/php --server 0.0.0.0:8000 --docroot /my-work
+ ```

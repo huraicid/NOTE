@@ -32,3 +32,30 @@ docker volume create --name work-db-volume
 
 ## ネットワーク
 `--nerwork work-network`
+
+
+## 実行コマンド
+### ボリューム作成
+```bash
+docker volume create --name work-db-volume
+```
+
+### コンテナ作成・実行
+```bash
+docker container run \
+--name db \
+--rm \
+--detach \
+--env MYSQL_ROOT_PASSWORD=secret \
+--env MYSQL_USER=app \
+--env MYSQL_PASSWORD=pass1234 \
+--env MYSQL_DATABASE=sample \
+--env TZ=Asia/Tokyo \
+--publish 3306:3306 \
+--mount \
+type=volume,source=work-db-volume,target=/var/lib/mysql \
+--mount \
+type=bind,source="$(pwd)"/docker/db/init,target=/docker-entrypoint-initdb.d \
+--network work-network \
+mysql:8.2.0
+```

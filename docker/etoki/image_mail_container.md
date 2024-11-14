@@ -25,3 +25,24 @@ docker volume create --name work-mail-volume
 
 ## ネットワーク
 `--nerwork work-network`
+
+
+## 実行コマンド
+### ボリューム作成
+```bash
+docker volume create --name work-mail-volume
+```
+
+### コンテナ作成・実行
+```bash
+docker container run \
+--name mail \
+--rm \
+--detach \
+--env TZ=Asia/Tokyo \
+--env MP_DATA_FILE=/data/mailplt.db \
+--publish 8025:8025 \
+--mount type=volume,source=work-mail-volume,target=/data \
+--network work-network \
+axllent/mailpit:v1.10.1
+```
